@@ -2,6 +2,7 @@ package vo;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,7 +30,7 @@ public class PagamentoVO {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date datapagamento;
 
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL,CascadeType.REMOVE})
 	private PedidoVO pedido;
 
 	public Long getIdPagamento() {
@@ -63,7 +64,7 @@ public class PagamentoVO {
 	public void setTipoPagamento(TipoPagamento tipoPagamento) {
 		this.tipoPagamento = tipoPagamento;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -72,7 +73,7 @@ public class PagamentoVO {
 				+ ((idPagamento == null) ? 0 : idPagamento.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

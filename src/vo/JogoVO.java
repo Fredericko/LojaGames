@@ -2,6 +2,7 @@ package vo;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,25 +27,12 @@ public class JogoVO {
 	private String genero;
 	private String imagem;
 	private Double preco;
+
 	@Enumerated(EnumType.ORDINAL)
 	private TipoClassificacao classificacao;
-	
-	@ManyToMany(mappedBy = "jogos", fetch = FetchType.LAZY)
-	private List<UsuarioVO> usuarios;
-	
-	@ManyToMany(mappedBy = "jogos", fetch = FetchType.LAZY)
-	private List<PedidoVO> pedidos;
 
 	public Long getIdJogo() {
 		return idJogo;
-	}
-
-	public List<PedidoVO> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(List<PedidoVO> pedidos) {
-		this.pedidos = pedidos;
 	}
 
 	public void setIdJogo(Long idJogo) {
@@ -89,14 +77,6 @@ public class JogoVO {
 
 	public void setClassificacao(TipoClassificacao classificacao) {
 		this.classificacao = classificacao;
-	}
-
-	public List<UsuarioVO> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<UsuarioVO> usuarios) {
-		this.usuarios = usuarios;
 	}
 	
 	@Override

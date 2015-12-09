@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +20,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import vo.enumerado.TipoPedido;
 
 @Entity
@@ -29,15 +30,15 @@ public class PedidoVO {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_pedido")
 	private Long idPedido;
 
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.ALL,CascadeType.REMOVE})
 	@JoinColumn(name = "usuario_id")
 	private UsuarioVO usuario;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(name = "pedido_jogo")
 	private List<JogoVO> jogos;
 
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL,CascadeType.REMOVE})
 	private PagamentoVO pagamento;
 
 	@Enumerated(EnumType.STRING)
